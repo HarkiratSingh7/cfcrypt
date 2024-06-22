@@ -28,9 +28,9 @@ int main()
     fwrite(buff, 1, FILE_SIZE, fp);
     fclose(fp);
 
-    unsigned char key[AES_256_KEY_LENGTH];
-    encrypt_aes_256_file_random(file_name, out_file, key);
-    decrypt_aes_256_file_with_key(out_file, dec_file, key);
+    unsigned char *key = malloc(AES_256_KEY_LENGTH);
+    encrypt_aes_256_file(file_name, out_file, &key, 1, 0);
+    decrypt_aes_256_file_with_key(out_file, dec_file, &key, 0);
 
     /* read file and compare contents */
     int file_size;
@@ -44,6 +44,7 @@ int main()
 
     free(buff);
     free(filebuff);
+    free(key);
 
     return 0;
 }

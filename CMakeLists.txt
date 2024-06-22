@@ -75,6 +75,18 @@ add_test(NAME test_aes_256 COMMAND test_aes_256)
 target_link_libraries(test_aes_256 ${OPENSSL_LIBRARIES})
 target_link_options(test_aes_256 PRIVATE -fsanitize=address)
 
+# AES Test Case
+add_executable(test_aes_128_passwd
+    tests/test_aes_128_passwd.c
+    ${SOURCES}
+)
+
+# Add tests
+add_test(NAME test_aes_128_passwd COMMAND test_aes_128_passwd)
+
+# Link the OpenSSL libraries
+target_link_libraries(test_aes_128_passwd ${OPENSSL_LIBRARIES})
+target_link_options(test_aes_128_passwd PRIVATE -fsanitize=address)
 
 # Installation rules
 # install(TARGETS encryption_tool DESTINATION bin)

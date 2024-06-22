@@ -5,6 +5,7 @@
 #include <openssl/err.h>
 
 typedef const EVP_CIPHER* (*EVP_CIPHER_FUNC)();
+typedef const EVP_MD* (*EVP_MD_FUNC)();
 
 EVP_CIPHER_FUNC FUNCTIONS[] = {
     EVP_aes_128_cbc,
