@@ -12,7 +12,7 @@ PARAMETERS:
 Note: -p and -k can't be used together
 ```
 ### Example: Encrypting / Decrypting a file using password with AES-128
-```bash
+```console
 honey@HONEY-PC:~/projects/cfcrypt/build$ cat TestFile123.txt 
 This is a sample text file.
 We can encrypt this and then decrypt to see if this is done correctly.
