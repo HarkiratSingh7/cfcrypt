@@ -88,6 +88,34 @@ add_test(NAME test_aes_128_passwd COMMAND test_aes_128_passwd)
 target_link_libraries(test_aes_128_passwd ${OPENSSL_LIBRARIES})
 target_link_options(test_aes_128_passwd PRIVATE -fsanitize=address)
 
+
+# AES Test Case
+add_executable(test_aes_192_passwd
+    tests/test_aes_192_passwd.c
+    ${SOURCES}
+)
+
+# Add tests
+add_test(NAME test_aes_192_passwd COMMAND test_aes_192_passwd)
+
+# Link the OpenSSL libraries
+target_link_libraries(test_aes_192_passwd ${OPENSSL_LIBRARIES})
+target_link_options(test_aes_192_passwd PRIVATE -fsanitize=address)
+
+
+# AES Test Case
+add_executable(test_aes_256_passwd
+    tests/test_aes_256_passwd.c
+    ${SOURCES}
+)
+
+# Add tests
+add_test(NAME test_aes_256_passwd COMMAND test_aes_256_passwd)
+
+# Link the OpenSSL libraries
+target_link_libraries(test_aes_256_passwd ${OPENSSL_LIBRARIES})
+target_link_options(test_aes_256_passwd PRIVATE -fsanitize=address)
+
 # Installation rules
 # install(TARGETS encryption_tool DESTINATION bin)
 # install(FILES README.md DESTINATION share/doc/encryption_tool)

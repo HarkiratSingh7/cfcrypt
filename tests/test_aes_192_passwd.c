@@ -11,12 +11,12 @@
 
 int main()
 {
-    printf("Testing the 128 AES file encryption / decryption with a plain password\n");
+    printf("Testing the 192 AES file encryption / decryption with a plain password\n");
 
     /* Create a big file */
-    const char *file_name = "TEST1_passwd.txt";
-    const char *out_file = "TEST1_passwd.enc";
-    const char *dec_file = "TEST1_passwd.dec";
+    const char *file_name = "TEST2_passwd.txt";
+    const char *out_file = "TEST2_passwd.enc";
+    const char *dec_file = "TEST2_passwd.dec";
 
     FILE *fp;
     if ((fp = fopen(file_name, "wb")) == NULL)
@@ -36,8 +36,8 @@ int main()
     memcpy(key2, passwd, PASSWD_LEN + 1);
     printf("[DEBUG] password is\n");
     print_bytes(key1, PASSWD_LEN + 1);
-    assert(SUCCESS == encrypt_aes_128_file(file_name, out_file, &key1, 0, 1));
-    assert(SUCCESS == decrypt_aes_128_file_with_key(out_file, dec_file, &key2, 1));
+    assert(SUCCESS == encrypt_aes_192_file(file_name, out_file, &key1, 0, 1));
+    assert(SUCCESS == decrypt_aes_192_file_with_key(out_file, dec_file, &key2, 1));
 
     /* read file and compare contents */
     int file_size;

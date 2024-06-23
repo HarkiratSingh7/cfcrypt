@@ -202,7 +202,7 @@ int encrypt_aes_128_file(const char *input_file,
     }
 
     /* Generate 128 bit AES key if requried */
-    if (generate_new) generate_bytes(*key, AES_128_KEY_LENGTH);
+    if (generate_new && !is_password) generate_bytes(*key, AES_128_KEY_LENGTH);
     
     /* Generate 128 bit IV */
     unsigned char iv[AES_128_IV_LENGTH];
@@ -251,7 +251,7 @@ int encrypt_aes_192_file(const char *input_file,
     }
 
     /* Generate 192 bit AES key if required */
-    if (generate_new) generate_bytes(*key, AES_192_KEY_LENGTH);
+    if (generate_new && !is_password) generate_bytes(*key, AES_192_KEY_LENGTH);
     
     /* Generate 128 bit IV */
     unsigned char iv[AES_128_IV_LENGTH];
@@ -299,7 +299,7 @@ int encrypt_aes_256_file(const char *input_file,
     }
 
     /* Generate 256 bit AES key if required */
-    if (generate_new) generate_bytes(*key, AES_256_KEY_LENGTH);
+    if (generate_new && !is_password) generate_bytes(*key, AES_256_KEY_LENGTH);
     
     /* Generate 128 bit IV */
     unsigned char iv[AES_128_IV_LENGTH];

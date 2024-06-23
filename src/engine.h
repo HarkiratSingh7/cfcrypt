@@ -38,6 +38,8 @@ typedef int (*decryption_function)(const char *,
         output_file:    file to write after encryption
         [IN/OUT] key:   memory allocation where to generate key
         generate_new:   0 to use key as it is otherwise 1 to generate
+                        if is_password is specified then this is ignored
+        is_password:    key parameter is actually a plain password input
         
     Description: Reads from input_file location, generates a 128 bit AES 
                  encryption key and 128 bit IV. Encrypts the input_file, and 
@@ -76,6 +78,8 @@ int decrypt_aes_128_file_with_key(const char *input_file,
         output_file:    file to write after encryption
         [IN/OUT] key:   memory allocation where to generate key
         generate_new:   0 to use key as it is otherwise 1 to generate
+                        if is_password is specified then this is ignored
+        is_password:    key parameter is actually a plain password input
         
     Description: Reads from input_file location, generates a 192 bit AES 
                  encryption key and 128 bit IV. Encrypts the input_file, and 
@@ -115,6 +119,8 @@ int decrypt_aes_192_file_with_key(const char *input_file,
         output_file:    file to write after encryption
         [IN/OUT] key:   memory allocation where to generate key
         generate_new:   0 to use key as it is otherwise 1 to generate
+                        if is_password is specified then this is ignored
+        is_password:    key parameter is actually a plain password input
         
     Description: Reads from input_file location, generates a 256 bit AES 
                  encryption key and 128 bit IV. Encrypts the input_file, and 

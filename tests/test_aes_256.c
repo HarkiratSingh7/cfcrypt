@@ -39,8 +39,8 @@ int main()
     printf("Assertion Check: file_size == FILE_SIZE\n");
     assert(file_size == FILE_SIZE);
     
-    printf("Assertion Check: (strcmp(buff, filebuff)) == 0\n");
-    assert((strcmp(buff, filebuff)) == 0);
+    printf("Assertion Check: (memcpy(buff, filebuff, file_size)) == 0\n");
+    assert((memcmp(buff, filebuff, file_size)) == 0);
 
     free(buff);
     free(filebuff);
