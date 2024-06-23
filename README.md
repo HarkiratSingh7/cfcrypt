@@ -7,8 +7,8 @@ cfcrypt [PARAMS] -i input.txt -o output.txt
 PARAMETERS:
 -m MODE         Mode, can be either encrypt or decrypt
 -a ALGO         Algorithms, possible values: aes128, aes192, aes256
--k KEY          Input Key, requried for decrypting, for encryption it will generate if not provided for encryption (and if -p is not given)
--p pass         Encrypt using a password, else it will generate a random key and output it ONLY once
+-k KEY          Input Key (in hex format), requried for decrypting, for encryption it will generate if not provided for encryption (and if -p is not given)
+-p pass         Encrypt using a password, else it will generate a random key and output it ONLY once (in hex format)
 Note: -p and -k can't be used together
 ```
 ### Example: Encrypting / Decrypting a file using password with AES-128
