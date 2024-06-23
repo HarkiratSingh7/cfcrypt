@@ -13,6 +13,7 @@ void print_usage() {
     printf("-k KEY \t\tInput Key, requried for decrypting, "
         "for encryption it will generate if not provided for encryption\n");
     printf("-p pass\t\tEncrypt using a password\n");
+    printf("Note: -p and -k can't be used together\n");
 }
 
 enum {
@@ -75,10 +76,6 @@ int encrypt_with_method(const char *input_file,
         print_bytes(key, key_length);
         printf("Note:-s option not specified, not storing key\n");
     }
-    else
-    {
-        printf("TODO:\n");
-    }
     
     return res;
 }
@@ -135,8 +132,8 @@ int main(int argc, char *argv[])
                 mode = DECRYPTION;
             else
             {
-                print_usage();
                 printf("Invalid '%s' mode specified.\n", argv[i + 1]);
+                print_usage();
                 exit(EXIT_FAILURE);
             }
             i++;
@@ -151,8 +148,8 @@ int main(int argc, char *argv[])
                 algorithm = AES_256;
             else
             {
-                print_usage();
                 printf("Invalid '%s' algorithm specified.\n", argv[i + 1]);
+                print_usage();
                 exit(EXIT_FAILURE);
             }
             i++;
@@ -164,8 +161,8 @@ int main(int argc, char *argv[])
             memcpy(input_key, argv[i + 1], sz);
             if (!input_key || sz == 0)
             {
-                print_usage();
                 printf("Invalid '%s' algorithm specified.\n", argv[i + 1]);
+                print_usage();
                 exit(EXIT_FAILURE);
             }
             i++;
@@ -179,8 +176,8 @@ int main(int argc, char *argv[])
             memcpy(input_key, argv[i + 1], sz);
             if (!input_key || sz == 0)
             {
-                print_usage();
                 printf("Invalid '%s' password specified.\n", argv[i + 1]);
+                print_usage();
                 exit(EXIT_FAILURE);
             }
             i++;
@@ -197,16 +194,16 @@ int main(int argc, char *argv[])
         }
         else
         {
-            print_usage();
             printf("Invalid '%s' option specified.\n", argv[i]);
+            print_usage();
             exit(EXIT_FAILURE);
         }
     }
 
     if (password && non_password)
     {
+        printf("Option -k and -p can't be used together\n");
         print_usage();
-        printf("Option -k and -p can't be used together");
         exit(EXIT_FAILURE);
     }
     
