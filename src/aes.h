@@ -6,6 +6,9 @@
 #include <stddef.h>
 #include <openssl/aes.h>
 
+#define SALT_SIZE                   0x10
+#define ITERATIONS                  10000
+
 enum AES_ALGORITHMS {
     AES_128,
     AES_192,

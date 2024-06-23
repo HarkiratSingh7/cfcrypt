@@ -48,3 +48,27 @@ unsigned char *generate_random_bytes(int length)
     
     return str;
 }
+
+char *generate_random_string(int length)
+{
+    static const char OFFSET = 32;
+    static const char COUNT = (126 - 32 + 1);
+    char *str = NULL;
+    if (length)
+    {
+        str = (char*)malloc(sizeof(char) * (length + 1));
+
+        if (!str)
+            return NULL;
+        
+        for (int i = 0; i < length; i++)
+        {
+            char key = OFFSET + (rand() % COUNT);
+            str[i] = key;
+        }
+
+        str[length] = '\0';
+    }
+
+    return str;
+}

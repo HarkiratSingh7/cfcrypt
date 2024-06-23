@@ -6,23 +6,40 @@
 #define _ENGINE_H
 
 #include "helper.h"
+#include "aes.h"
 
 #include <stddef.h>
 
 #define ENCRYPTION_MODE             "encrypt"
 #define DECRYPTION_MODE             "decrypt"
 
-#define AES_ALGORITHM               "aes"
-#define AES_256_KEY_LENGTH          0x20
-#define AES_192_KEY_LENGTH          0x18
+#define AES_128_ALGORITHM           "aes128"
 #define AES_128_KEY_LENGTH          0x10
+#define AES_192_ALGORITHM           "aes192"
+#define AES_192_KEY_LENGTH          0x18
+#define AES_256_ALGORITHM           "aes256"
+#define AES_256_KEY_LENGTH          0x20
+
 #define AES_128_IV_LENGTH           0x10
 
+typedef int (*encryption_function)(const char *, 
+                                   const char *, 
+                                   unsigned char **,
+                                   int,
+                                   int);
+
+typedef int (*decryption_function)(const char *,
+                                   const char *,
+                                   unsigned char **,
+                                   int);
 /*
     Params:
         input_file:     file to read for encrypting
         output_file:    file to write after encryption
-        [OUT] key:            memory allocation where to generate key
+        [IN/OUT] key:   memory allocation where to generate key
+        generate_new:   0 to use key as it is otherwise 1 to generate
+                        if is_password is specified then this is ignored
+        is_password:    key parameter is actually a plain password input
         
     Description: Reads from input_file location, generates a 128 bit AES 
                  encryption key and 128 bit IV. Encrypts the input_file, and 
@@ -30,9 +47,11 @@
     
     Returns: 1 if error else 0
 */
-int encrypt_aes_128_file_random(const char *input_file,
-                                const char *output_file,
-                                unsigned char *key);
+int encrypt_aes_128_file(const char *input_file,
+                         const char *output_file,
+                         unsigned char **key,
+                         int generate_new,
+                         int is_password);
 
 /*
     Params:
@@ -49,14 +68,18 @@ int encrypt_aes_128_file_random(const char *input_file,
 */
 int decrypt_aes_128_file_with_key(const char *input_file,
                                   const char *output_file,
-                                  const unsigned char *key);
+                                  unsigned char **key,
+                                  int is_password);
 
 
 /*
     Params:
         input_file:     file to read for encrypting
         output_file:    file to write after encryption
-        [OUT] key:            memory allocation where to generate key
+        [IN/OUT] key:   memory allocation where to generate key
+        generate_new:   0 to use key as it is otherwise 1 to generate
+                        if is_password is specified then this is ignored
+        is_password:    key parameter is actually a plain password input
         
     Description: Reads from input_file location, generates a 192 bit AES 
                  encryption key and 128 bit IV. Encrypts the input_file, and 
@@ -64,9 +87,11 @@ int decrypt_aes_128_file_with_key(const char *input_file,
     
     Returns: 1 if error else 0
 */
-int encrypt_aes_192_file_random(const char *input_file,
-                                const char *output_file,
-                                unsigned char *key);
+int encrypt_aes_192_file(const char *input_file,
+                         const char *output_file,
+                         unsigned char **key,
+                         int generate_new,
+                         int is_password);
 
 /*
     Params:
@@ -83,7 +108,8 @@ int encrypt_aes_192_file_random(const char *input_file,
 */
 int decrypt_aes_192_file_with_key(const char *input_file,
                                   const char *output_file,
-                                  const unsigned char *key);
+                                  unsigned char **key,
+                                  int is_password);
 
 
 
@@ -91,7 +117,10 @@ int decrypt_aes_192_file_with_key(const char *input_file,
     Params:
         input_file:     file to read for encrypting
         output_file:    file to write after encryption
-        [OUT] key:            memory allocation where to generate key
+        [IN/OUT] key:   memory allocation where to generate key
+        generate_new:   0 to use key as it is otherwise 1 to generate
+                        if is_password is specified then this is ignored
+        is_password:    key parameter is actually a plain password input
         
     Description: Reads from input_file location, generates a 256 bit AES 
                  encryption key and 128 bit IV. Encrypts the input_file, and 
@@ -99,9 +128,11 @@ int decrypt_aes_192_file_with_key(const char *input_file,
     
     Returns: 1 if error else 0
 */
-int encrypt_aes_256_file_random(const char *input_file,
-                                const char *output_file,
-                                unsigned char *key);
+int encrypt_aes_256_file(const char *input_file,
+                         const char *output_file,
+                         unsigned char **key,
+                         int generate_new,
+                         int is_password);
 
 /*
     Params:
@@ -118,7 +149,8 @@ int encrypt_aes_256_file_random(const char *input_file,
 */
 int decrypt_aes_256_file_with_key(const char *input_file,
                                   const char *output_file,
-                                  const unsigned char *key);
+                                  unsigned char **key,
+                                  int is_password);
 
 
 #endif

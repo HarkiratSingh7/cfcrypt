@@ -28,9 +28,9 @@ int main()
     fwrite(buff, 1, FILE_SIZE, fp);
     fclose(fp);
 
-    unsigned char key[AES_192_KEY_LENGTH];
-    encrypt_aes_192_file_random(file_name, out_file, key);
-    decrypt_aes_192_file_with_key(out_file, dec_file, key);
+    unsigned char *key = malloc(AES_192_KEY_LENGTH);
+    encrypt_aes_192_file(file_name, out_file, &key, 1, 0);
+    decrypt_aes_192_file_with_key(out_file, dec_file, &key, 0);
 
     /* read file and compare contents */
     int file_size;
@@ -39,11 +39,12 @@ int main()
     printf("Assertion Check: file_size == FILE_SIZE\n");
     assert(file_size == FILE_SIZE);
     
-    printf("Assertion Check: (strcmp(buff, filebuff)) == 0\n");
-    assert((strcmp(buff, filebuff)) == 0);
+    printf("Assertion Check: memccpy(buff, filebuff, file_size) == 0\n");
+    assert(memcmp(buff, filebuff, file_size) == 0);
 
     free(buff);
     free(filebuff);
+    free(key);
 
     return 0;
 }

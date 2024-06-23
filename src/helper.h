@@ -28,4 +28,6 @@ void read_hex(unsigned char *dat, unsigned char *dest, size_t size);
 
 unsigned char *generate_random_bytes(int length);
 
+char *generate_random_string(int length);
+
 #endif //_PROJECT_HELPER_H
