@@ -1,6 +1,22 @@
 # The cfcrypt tool
 This tool is used for encrypting and decrypting files (encrypted by this program).
 
+## Building from the source
+1. Download the source code by git cloning.
+2. Instantiate cmake build directory. Make sure the currect working directory is the one containing main CMakeLists.txt file.
+```console
+cmake . -B build/
+```
+3. Build the modules.
+```console
+cd build
+make all
+```
+4. Test the modules
+```console
+make test
+```
+
 ## Usage:
 ```console
 cfcrypt [PARAMS] -i input.txt -o output.txt
