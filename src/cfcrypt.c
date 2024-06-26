@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 #include "engine.h"
 #include "file_handler.h"
@@ -10,9 +11,9 @@ void print_usage() {
     printf("PARAMETERS:\n");
     printf("-m MODE\t\tMode, can be either encrypt or decrypt\n");
     printf("-a ALGO\t\tAlgorithms, possible values: aes128, aes192, aes256\n");
-    printf("-k KEY \t\tInput Key, requried for decrypting, "
+    printf("-k \t\tInput Key, requried for decrypting, "
         "for encryption it will generate if not provided for encryption\n");
-    printf("-p pass\t\tEncrypt using a password\n");
+    printf("-p \t\tEncrypt using a password\n");
     printf("Note: -p and -k can't be used together\n");
 }
 
@@ -74,7 +75,6 @@ int encrypt_with_method(const char *input_file,
     if (!password)
     {
         print_bytes(key, key_length);
-        printf("Note:-s option not specified, not storing key\n");
     }
     
     return res;
@@ -156,12 +156,17 @@ int main(int argc, char *argv[])
         }
         else if (strcmp(argv[i], "-k") == 0)
         {
+            if (i + 1 >= argc)
+            {
+                goto invalid_key;
+            }
             int sz = strlen(argv[i + 1]);
             input_key = malloc(sz);
             memcpy(input_key, argv[i + 1], sz);
-            if (!input_key || sz == 0)
+            if (!input_key || sz == 0 || input_key[0] == '-')
             {
-                printf("Invalid '%s' algorithm specified.\n", argv[i + 1]);
+invalid_key:
+                printf("Invalid key specified.\n");
                 print_usage();
                 exit(EXIT_FAILURE);
             }
@@ -171,16 +176,16 @@ int main(int argc, char *argv[])
         else if (strcmp(argv[i], "-p") == 0)
         {
             password = 1;
-            int sz = strlen(argv[i + 1]);
+            char *password_input = getpass("Enter Password: ");
+            int sz = strlen(password_input);
             input_key = malloc(sz);
-            memcpy(input_key, argv[i + 1], sz);
+            memcpy(input_key, password_input, sz);
             if (!input_key || sz == 0)
             {
-                printf("Invalid '%s' password specified.\n", argv[i + 1]);
+                printf("Invalid password specified.\n");
                 print_usage();
                 exit(EXIT_FAILURE);
             }
-            i++;
         }
         else if (strcmp(argv[i], "-i") == 0)
         {
@@ -238,7 +243,7 @@ int main(int argc, char *argv[])
         if (!input_key && mode == DECRYPTION)
         {
             print_usage();
-            printf("Input key is required or -s option should be specified");
+            printf("Input key is required.\n");
             exit(EXIT_FAILURE);
         }
     }
